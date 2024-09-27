@@ -60,11 +60,25 @@ function App() {
 
     }
   
+    function addNewTask(text) {
+      setCreateProject(prevProject => {
+        const newTask = {
+          id: Math.random(),
+          project_id: prevProject.selectedProjectID,
+          task_title: text
+        }
+        return {
+          ...prevProject,
+          tasks: [...prevProject.tasks, newTask]
+        }
+      })
+    }
+  
 
   console.log(createProject);
   const selectedProject = createProject.projects.find(project => project.id === createProject.selectedProjectID)
 
-  let main_content = <ProjectView project={selectedProject}/>
+  let main_content = <ProjectView project={selectedProject} onAdd={addNewTask}/>
 
   if (createProject.selectedProjectID === undefined) {
     main_content = <NoProject onSelect={handleSelectNewProject} projects={createProject.projects}/>

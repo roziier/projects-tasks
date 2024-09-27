@@ -1,4 +1,6 @@
-export default function ProjectView({project}) {
+import NewTask from './NewTask.jsx'
+
+export default function ProjectView({project, onAdd}) {
     return(
         <main className="project-view">
             <div className="header">
@@ -9,6 +11,7 @@ export default function ProjectView({project}) {
                 <h4>{project.date}</h4>
                 <p>{project.description}</p>
             </section>
+            <NewTask onAdd={onAdd}/>
         </main>
     )
 }
