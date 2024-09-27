@@ -1,10 +1,20 @@
 import Button from './Button.jsx'
 
-export default function Sidebar({onSelect}) {
+export default function Sidebar({onSelect, projects}) {
+    
     return(
         <aside id="sidebar">
             <h2>Your Projects</h2>
             <Button onSelect={onSelect}>+ Add New</Button>
+            <div className='sidebar-list'>
+                <ul>
+                    {projects.map(project => 
+                        <li key={project.id}>
+                            <button>{project.title}</button>
+                        </li>
+                    )}
+                </ul>
+            </div>
         </aside>
     )
 }

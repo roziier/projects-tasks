@@ -106,7 +106,7 @@ body {
     background-color: #05060f0a;
     border-radius: .5rem;
     padding: 0 1rem;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     font-size: 0.7rem;
     transition: border-color .3s cubic-bezier(.25,.01,.25,1) 0s, color .3s cubic-bezier(.25,.01,.25,1) 0s,background .2s cubic-bezier(.25,.01,.25,1) 0s;
   }
@@ -127,4 +127,36 @@ body {
   
   .input-group:hover .label, .input:focus {
     color: #05060fc2;
+  }
+
+  .sidebar-list {
+    margin-top: 30px;
+  }
+
+  .sidebar-list li{
+    margin-bottom: 10px;
+    list-style: none;
+
+  }
+
+  .sidebar-list button{
+    margin-bottom: 10px;
+    list-style: none;
+    outline: none;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 60px;
+    text-align: left;
+    background-color: rgb(191, 66, 8);
+    text-decoration: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 100ms;
+  }
+
+  .sidebar-list button:hover{
+    background-color: #f0d882;   
   }

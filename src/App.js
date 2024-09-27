@@ -12,6 +12,7 @@ function App() {
     tasks: []
   })
 
+  //HANDLE PROJECT STATUS
   function handleSelectNewProject() {
     setCreateProject(prevProject => {
       // return an object
@@ -21,7 +22,7 @@ function App() {
       }
     })
   }
-
+  //HANDLE PROJECT STATUS
   function handleCancelNewProject() {
     setCreateProject(prevProject => {
       // return an object
@@ -31,17 +32,34 @@ function App() {
       }
     })
   }
+  //HANDLE PROJECT CREATION
+  function handleAddProject(values) {
+    setCreateProject(prevProject => {
+      const newProj = {
+        ...values,
+        id: Math.random()
+      }
+      // return an object
+      return {
+        ...prevProject,
+        selectedProjectID: undefined,
+        projects: [...prevProject.projects, newProj]
+      }
+    })
+  }
+
+  console.log(createProject);
 
   let main_content;
   if (createProject.selectedProjectID === undefined) {
     main_content = <NoProject onSelect={handleSelectNewProject}/>
   } else if (createProject.selectedProjectID === null) {
-    main_content = <NewProject onCancel={handleCancelNewProject}/>
+    main_content = <NewProject onCancel={handleCancelNewProject} onAdd={handleAddProject}/>
   }
 
   return (
     <div className="container">
-      <Sidebar onSelect={handleSelectNewProject} />
+      <Sidebar onSelect={handleSelectNewProject} projects={createProject.projects}/>
       {main_content}
     </div>
   );

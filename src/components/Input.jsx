@@ -1,8 +1,12 @@
-export default function Input({label, type, textarea}) {
+import {forwardRef} from 'react'
+
+const Input = forwardRef(function Input({label, type, textarea}, ref) {
     return(
         <div className="input-group">
             <label className="label">{label}</label>
-            {textarea ? <textarea className="input"></textarea> : <input className="input" type={type}/>}
+            {textarea ? <textarea ref={ref} className="input"></textarea> : <input ref={ref} className="input" type={type}/>}
         </div>
     )
-}
+})
+
+export default Input
