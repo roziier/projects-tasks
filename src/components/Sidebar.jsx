@@ -1,10 +1,10 @@
 import Button from './Button.jsx'
 
-export default function Sidebar() {
+export default function Sidebar({onSelect}) {
     return(
         <aside id="sidebar">
             <h2>Your Projects</h2>
-            <Button>+ Add New</Button>
+            <Button onSelect={onSelect}>+ Add New</Button>
         </aside>
     )
 }
