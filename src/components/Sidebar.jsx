@@ -1,6 +1,6 @@
 import Button from './Button.jsx'
 
-export default function Sidebar({onSelect, projects}) {
+export default function Sidebar({onSelect, projects, clickProject}) {
     
     return(
         <aside id="sidebar">
@@ -10,7 +10,7 @@ export default function Sidebar({onSelect, projects}) {
                 <ul>
                     {projects.map(project => 
                         <li key={project.id}>
-                            <button>{project.title}</button>
+                            <button onClick={() => clickProject(project.id)} >{project.title}</button>
                         </li>
                     )}
                 </ul>

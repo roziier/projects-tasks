@@ -1,6 +1,8 @@
 import Sidebar from "./components/Sidebar.jsx";
 import NoProject from "./components/NoProject.jsx";
 import NewProject from "./components/NewProject.jsx";
+import ProjectView from "./components/ProjectView.jsx";
+
 import {useState} from 'react'
 
 
@@ -48,18 +50,31 @@ function App() {
     })
   }
 
-  console.log(createProject);
+    function showSelectedProject(projID) {
+      setCreateProject(prevProject => {
+        return {
+          ...prevProject,
+          selectedProjectID: projID
+        }
+      })
 
-  let main_content;
+    }
+  
+
+  console.log(createProject);
+  const selectedProject = createProject.projects.find(project => project.id === createProject.selectedProjectID)
+
+  let main_content = <ProjectView project={selectedProject}/>
+
   if (createProject.selectedProjectID === undefined) {
-    main_content = <NoProject onSelect={handleSelectNewProject}/>
+    main_content = <NoProject onSelect={handleSelectNewProject} projects={createProject.projects}/>
   } else if (createProject.selectedProjectID === null) {
     main_content = <NewProject onCancel={handleCancelNewProject} onAdd={handleAddProject}/>
   }
 
   return (
     <div className="container">
-      <Sidebar onSelect={handleSelectNewProject} projects={createProject.projects}/>
+      <Sidebar onSelect={handleSelectNewProject} projects={createProject.projects} clickProject={showSelectedProject}/>
       {main_content}
     </div>
   );
