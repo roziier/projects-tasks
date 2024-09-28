@@ -1,4 +1,5 @@
 import Input from './Input.jsx'
+import Modal from './Modal.jsx'
 import {useRef} from 'react'
 
 export default function NewProject({onCancel, onAdd}) {
@@ -7,10 +8,17 @@ export default function NewProject({onCancel, onAdd}) {
     const descInput = useRef()
     const dateInput = useRef()
 
+    const dialog = useRef()
+
     function handleSaveProjectInput() {
         const savedText = textInput.current.value
         const savedDesc = descInput.current.value
         const savedDate = dateInput.current.value
+
+        if (savedText.trim() === '' || savedDesc.trim() === '' || savedDate.trim() === '') {
+            dialog.current.open()
+            return
+        }
         
         onAdd({
             title: savedText,
@@ -21,6 +29,7 @@ export default function NewProject({onCancel, onAdd}) {
 
     return(
         <main className="main-window">
+            <Modal ref={dialog}/>
             <h2>CREATE YOUR PROJECT</h2>
             <div className='form-actions'>
                 <button onClick={onCancel} className="button-1">Cancel</button>
