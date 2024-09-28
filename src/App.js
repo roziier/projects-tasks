@@ -73,12 +73,24 @@ function App() {
         }
       })
     }
+
+    function removeTask(id) {
+      setCreateProject(prevProject => {
+        const removedTask = createProject.tasks.filter(task => task.id !== id)
+        return {
+          ...prevProject,
+          tasks: [...removedTask]
+        }
+      })
+    }
+  
   
 
-  console.log(createProject);
   const selectedProject = createProject.projects.find(project => project.id === createProject.selectedProjectID)
-
-  let main_content = <ProjectView project={selectedProject} onAdd={addNewTask}/>
+  const selectedTasks = createProject.tasks.filter(task => task.project_id === createProject.selectedProjectID)
+  console.log(createProject);
+ 
+  let main_content = <ProjectView project={selectedProject} tasks={selectedTasks} onAdd={addNewTask} onDelete={removeTask}/>
 
   if (createProject.selectedProjectID === undefined) {
     main_content = <NoProject onSelect={handleSelectNewProject} projects={createProject.projects}/>
