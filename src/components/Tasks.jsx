@@ -11,7 +11,7 @@ export default function Tasks({projectTasks, onDelete}) {
                             <span>{task.task_title}</span>
                             <button onClick={() => onDelete(task.id)}>Clear</button>
                         </li>
-                        )}
+                    )}
                 </div>
             }
             

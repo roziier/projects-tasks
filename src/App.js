@@ -14,7 +14,8 @@ function App() {
     tasks: []
   })
 
-  //HANDLE PROJECT STATUS
+  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  //HANDLE PROJECT STATUS SELECTION
   function handleSelectNewProject() {
     setCreateProject(prevProject => {
       // return an object
@@ -24,7 +25,8 @@ function App() {
       }
     })
   }
-  //HANDLE PROJECT STATUS
+  
+
   function handleCancelNewProject() {
     setCreateProject(prevProject => {
       // return an object
@@ -34,7 +36,19 @@ function App() {
       }
     })
   }
-  //HANDLE PROJECT CREATION
+
+  function showSelectedProject(projID) {
+    setCreateProject(prevProject => {
+      return {
+        ...prevProject,
+        selectedProjectID: projID
+      }
+    })
+
+  }
+
+  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  //HANDLE PROJECTS CREATION AND DELETION
   function handleAddProject(values) {
     setCreateProject(prevProject => {
       const newProj = {
@@ -50,16 +64,22 @@ function App() {
     })
   }
 
-    function showSelectedProject(projID) {
-      setCreateProject(prevProject => {
-        return {
-          ...prevProject,
-          selectedProjectID: projID
-        }
-      })
+  function handleRemoveProject() {
+    setCreateProject(prevProject => {
+      const projectsLeft = createProject.projects.filter(project => project.id !== createProject.selectedProjectID)
+      const tasksLeft = createProject.tasks.filter(task => task.project_id !== createProject.selectedProjectID)
+      
+      return {
+        ...prevProject,
+        selectedProjectID: undefined,
+        projects: [...projectsLeft],
+        tasks: [...tasksLeft]
+      }
+    })
+  }
 
-    }
-  
+    //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    //HANDLE TASKS CREATION AND DELETION
     function addNewTask(text) {
       setCreateProject(prevProject => {
         const newTask = {
@@ -76,21 +96,20 @@ function App() {
 
     function removeTask(id) {
       setCreateProject(prevProject => {
-        const removedTask = createProject.tasks.filter(task => task.id !== id)
+        const tasksLeft = createProject.tasks.filter(task => task.id !== id)
         return {
           ...prevProject,
-          tasks: [...removedTask]
+          tasks: [...tasksLeft]
         }
       })
     }
   
   
-
   const selectedProject = createProject.projects.find(project => project.id === createProject.selectedProjectID)
   const selectedTasks = createProject.tasks.filter(task => task.project_id === createProject.selectedProjectID)
   console.log(createProject);
  
-  let main_content = <ProjectView project={selectedProject} tasks={selectedTasks} onAdd={addNewTask} onDelete={removeTask}/>
+  let main_content = <ProjectView project={selectedProject} tasks={selectedTasks} onAdd={addNewTask} onDelete={removeTask} onRemove={handleRemoveProject}/>
 
   if (createProject.selectedProjectID === undefined) {
     main_content = <NoProject onSelect={handleSelectNewProject} projects={createProject.projects}/>
